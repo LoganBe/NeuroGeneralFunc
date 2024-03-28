@@ -1,1 +1,1 @@
-General neuro functions used for analyzing and plot spike statistics
+General neuro functions used for analyzing and plotting spike statistics
