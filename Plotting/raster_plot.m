@@ -1,4 +1,4 @@
-function [p] = raster_plot(spike_info,nT,dt,color_type,offset,marker_size)
+function [p] = raster_plot(spike_info,dt,color_type,offset,marker_size)
 % raster_plot      Creates a raster plot of the given bined data
 %
 %                  [] = raster_plot(bined_data, nT ,t) creates a plot
@@ -17,26 +17,27 @@ function [p] = raster_plot(spike_info,nT,dt,color_type,offset,marker_size)
 %
 
 %Default spike_info is bined
-if nargin == 6
+if nargin == 5
     ms = marker_size; if isempty(ms); ms = 6; end
-elseif nargin == 5
+elseif nargin == 4
     ms = 6;
-elseif nargin  == 4
+elseif nargin  == 3
     ms = 6; offset = 0;
-elseif nargin < 4
+elseif nargin < 3
     color_type = "k"; ms = 6; offset = 0;
 end
 
 color_type = color_type;
+nT = size(spike_info,2);
 %Make sure spike_info matched the number of trials
-if size(spike_info,1) ~= nT
-    spike_info = spike_info';
-end
+%if size(spike_info,1) ~= nT
+%    spike_info = spike_info';
+%end
 
-assert(size(spike_info,1) == nT,'nT is incorrect, does not match size of data')
+assert(size(spike_info,2) == nT,'nT is incorrect, does not match size of data')
 
-[st_tr, st_idx] = find(spike_info);
-p = plot(st_idx*dt,st_tr+offset,'color',color_type,'Marker','.','Linestyle','none','MarkerSize',ms);
+[st_tr, st_idx] = find(spike_info');
+p = plot((st_idx-1)*dt,st_tr+offset,'color',color_type,'Marker','.','Linestyle','none','MarkerSize',ms);
 %%
 %{
 %Convert data to spike times if bined

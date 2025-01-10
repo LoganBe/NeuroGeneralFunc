@@ -35,6 +35,8 @@ if nargin < 4
     lent = size(bined_data,2); 
     info.pbin = lent*0.1;
     info.filt_type = 'gauss';
+else
+    if ~isfield(info,'filt_type'); info.filt_type = "gauss"; end
 end
     
 %Load in info

@@ -41,7 +41,9 @@ for i = steps
     else
         if meanflag
             fbined(:,c)= mean(bined_data(:,i:i+stepsize),2); %average count in pbin window during given time
-        else
+        elseif varflag
+            fbined(:,c) = var(bined_data(:,i:i+stepsize),2);
+        else                
             fbined(:,c)= sum(bined_data(:,i:i+stepsize),2); %average count in pbin window during given time
         end
     end
